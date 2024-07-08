@@ -120,7 +120,7 @@ def store_moodle_data_in_chromadb(moodle_data):
 # Funktion, um eine OpenAI-Antwort zu erhalten
 def get_ai_response(prompt, history):
     response = openai.ChatCompletion.create(
-        model="gpt-4-turbo",
+        model="gpt-3.5-turbo-0125",
         messages=history
     )
     return response['choices'][0]['message']['content'].strip()
@@ -201,8 +201,10 @@ if 'moodle_data' in st.session_state:
 
     if st.button("E-Mail-Benachrichtigungen aktivieren"):
         if user_email:
-            email_service.schedule_emails(moodle_data, user_email, days_before, frequency)
-            st.success("E-Mail-Benachrichtigungen wurden gesendet!")
+            if email_service.schedule_emails(moodle_data, user_email, days_before, frequency):
+                st.success("E-Mail-Benachrichtigungen wurden gesendet!")
+            else:
+                st.error("E-Mail wurde zu kürzlich gesendet. Bitte warten Sie, bevor Sie eine weitere senden.")
 
     # Moodle-Daten anzeigen
     st.subheader("Deine Kurse und Abgaben")
