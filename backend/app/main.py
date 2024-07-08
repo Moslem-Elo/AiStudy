@@ -232,9 +232,9 @@ if 'moodle_data' in st.session_state:
 
             # Abfrage an ChromaDB stellen
             chromadb_results = query_chromadb(user_question)
-            st.write("Ähnliche Ergebnisse aus ChromaDB:")
-            for result in chromadb_results:
-                st.write(result)
+            #st.write("Ähnliche Ergebnisse aus ChromaDB:")
+            #for result in chromadb_results:
+            #    st.write(result)
 
             # Verwende die ChromaDB-Ergebnisse im Prompt
             if chromadb_results:
